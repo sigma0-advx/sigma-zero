@@ -1,6 +1,6 @@
 # σ-zero: Gradient-based Optimization of ℓ0-norm Adversarial Examples
 
-This code is the official PyTorch implementation of the **σ-zero: Gradient-based Optimization of ℓ0-norm Adversarial Examples**.
+This code is the official PyTorch implementation of the **σ-zero: Gradient-based Optimization of ℓ0-norm Adversarial Examples** (ICLR 2025). 
 
 ![Image1](git_images/sigma-zero_optimization.jpg)
 
