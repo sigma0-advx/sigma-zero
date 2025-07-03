@@ -239,6 +239,8 @@ def show_salient_statistics(experiment_results, name):
     results = {
         "ASR%24": round(fixed_asr(norms_with0andinf, 24), 2),
         "ASR%50": round(fixed_asr(norms_with0andinf, 50), 2),
+        "ASR%50": round(fixed_asr(norms_with0andinf, 100), 2),
+        "ASR%50": round(fixed_asr(norms_with0andinf, 150), 2),
         "ASR%": data["ASR"] * 100,
         "L0_median": l0_median,  # Added L0 median using norms_with0andinf
         "time(s)": round(sum(data["times"]) / len_data, 2),
