@@ -205,39 +205,50 @@ def save_examples(experiment_folder_path, stats, start_index=0, end_index=0):
         vutils.save_image(example_image, image_path)
         vutils.save_image(example_mask, mask_path)
 
+def get_norm_stats(data, distance="l0"):
+    # normal l0
+    norm = [norm for norm, adv, ori in zip(data["distances"][distance], data["adv_success"], data["ori_success"]) if
+            adv and not ori]
+    # l0 with also examples that are originally adversarial
+    norm_with0 = [l0 for l0, adv, ori in zip(data["distances"][distance], data["adv_success"], data["ori_success"]) if
+                  adv]
+    # all non-adversarial examples have l0 == infinity
+    norm_infex = [float('inf') for l0, adv, ori in zip(data["distances"][distance], data["adv_success"], data["ori_success"])
+                  if not adv]
+    # last two combined, shape --> # samples
+    norm_with0andinf = norm_with0 + norm_infex
+    return norm, norm_with0, norm_with0andinf
+
+def fixed_asr(l0s, x):
+    return round((np.count_nonzero(np.array(l0s) <= x) / len(l0s))*100, 2)
 
 def show_salient_statistics(experiment_results, name):
     """
     Show salient statistics given the result of an experiment
     """
-    attack_name = name
-    asr = experiment_results.get("ASR", "N/A") * 100 if experiment_results.get("ASR", "N/A") != "N/A" else "N/A"
+    data = experiment_results
 
-    l0s = ([x for x, y, z in zip(experiment_results['distances']['l0'], experiment_results['adv_success'],
-                                 experiment_results["ori_success"]) if y and not z])
-    l0_median = statistics.median(l0s) if l0s != [] else 0
-    l0_mean = statistics.mean(l0s) if l0s != [] else 0
+    len_data = len(data["distances"]["l0"])
 
-    time = sum(experiment_results.get("times", [])) / len(experiment_results['adv_success'])
-
-    num_queries = (sum(experiment_results.get('num_forwards', [])) + sum(
-        experiment_results.get('num_backwards', []))) / len(experiment_results["ori_success"])
-
-    vram = experiment_results.get("max_memory", "N/A")
-
-    summary = {
-        "attack_name": attack_name,
-        "ASR_inf": round(asr, 4),
-        "L0 Median": round(l0_median, 4),
-        "L0 Mean": round(l0_mean, 4),
-        "Time (seconds)": round(time, 4),
-        "Number of Queries": num_queries,
-        "VRAM Usage (MB)": round(vram, 2)
+    # some l0 stats
+    norms, norms_with0, norms_with0andinf = get_norm_stats(data, "l0")
+    
+    # Calculate L0 median using norms_with0andinf (includes inf for failed attacks)
+    l0_median = statistics.median(norms_with0andinf) if norms_with0andinf else float('inf')
+    
+    results = {
+        "ASR%24": round(fixed_asr(norms_with0andinf, 24), 2),
+        "ASR%50": round(fixed_asr(norms_with0andinf, 50), 2),
+        "ASR%": data["ASR"] * 100,
+        "L0_median": l0_median,  # Added L0 median using norms_with0andinf
+        "time(s)": round(sum(data["times"]) / len_data, 2),
+        "qx1000": round(
+            (sum(data["num_forwards"] + data["num_backwards"])) / len_data / 1000, 2),
+        "VRAM": round(data["max_memory"], 2),
     }
+    print(results)
 
-    print(summary)
-
-    return summary
+    return results
 
 
 def generate_experiment_name():
