@@ -20,7 +20,7 @@ test_attacks = {
     'PDPGD': partial(pdpgd),
     'FMN': partial(fmn),
     'sigma_zero': partial(sigma_zero),
-    'sigma_zero*': partial(sigma_zero, sigma=1.0, threshold=0.1, lr=0.1, t=0.0015),
+    'sigma_zero_star': partial(sigma_zero, sigma=1.0, threshold=0.1, lr=0.1, t=0.0015),
 }
 
 
