@@ -88,6 +88,19 @@ and more which are optional:
 - `epsilon_budget`: threshold for the early stopping mechanism to stop the optimization of an adversarial examples when an adversarial examples with a lower perturbation budget than $\epsilon$ is found;
 - `grad_norm`: which norm is used to perform the normalization of the gradients.
 
+## Citation
+
+If you use the **$\sigma$-zero**, then consider citing our [paper](https://arxiv.org/pdf/2402.01879) accepted at ICLR 2025:
+
+```bibtex
+@inproceedings{cina2024sigma,
+  title={$\sigma$-zero: Gradient-based Optimization of 𝓁-norm Adversarial Examples},
+  author={Cin{\`a}, Antonio Emanuele and Villani, Francesco and Pintor, Maura and Sch{\"o}nherr, Lea and Biggio, Battista and Pelillo, Marcello},
+  booktitle={Proceedings of the International Conference on Learning Representations (ICLR)},
+  year={2025},
+}
+```
+
 ## Acknowledgements
 The authors would like to thank the contributors of [adversarial-library](https://github.com/jeromerony/adversarial-library), [RobustBench](https://github.com/RobustBench/robustbench) and [Torchattacks](https://github.com/Harry24k/adversarial-attacks-pytorch) for having facilitated the development of this project.
 
