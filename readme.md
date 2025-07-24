@@ -93,11 +93,12 @@ and more which are optional:
 If you use the **$\sigma$-zero**, then consider citing our [paper](https://arxiv.org/pdf/2402.01879) accepted at ICLR 2025:
 
 ```bibtex
-@inproceedings{cina2024sigma,
-  title={$\sigma$-zero: Gradient-based Optimization of 𝓁-norm Adversarial Examples},
-  author={Cin{\`a}, Antonio Emanuele and Villani, Francesco and Pintor, Maura and Sch{\"o}nherr, Lea and Biggio, Battista and Pelillo, Marcello},
-  booktitle={Proceedings of the International Conference on Learning Representations (ICLR)},
-  year={2025},
+@inproceedings{cina2025sigmazero,
+title={$\sigma$-zero: Gradient-based Optimization of $\ell_0$-norm Adversarial Examples},
+author={Antonio Emanuele Cin{\`a} and Francesco Villani and Maura Pintor and Lea Sch{\"o}nherr and Battista Biggio and Marcello Pelillo},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+url={https://openreview.net/forum?id=JMPOqoe4tl}
 }
 ```
 
