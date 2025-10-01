@@ -11,6 +11,8 @@ from utils.resnet import resnet18_normalized, ResNet18_Weights
 
 from models.cifar10.preact_resnet import load_pretrained_models, load_preact_resnet
 
+from models.cifar10.c11_c12 import load_c11, load_c12
+
 mnist_smallcnn_ddn = {
     'name': 'MNIST_SmallCNN_ddn',
     'dataset': 'mnist'
@@ -116,6 +118,8 @@ _local_cifar_models = {
                       threat_model=xu_2023['threat_model']),
     'addepalli2022': partial(load_robustbench_model, name=addepalli2022['name'], dataset=addepalli2022['dataset'],
                              threat_model=addepalli2022['threat_model']),
+    'c11': partial(load_c11),
+    'c12': partial(load_c12)
 }
 
 
